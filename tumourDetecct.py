@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 
-def load_images_from_folder(folder_path, image_size=(224, 224), *validation_split):
+def load_images_from_folder(folder_path, image_size=(224, 224), validation_split=0):
    
     images = []
     labels = []
@@ -94,25 +94,24 @@ def visualize_samples(images, labels, num_samples_per_class=5):
     plt.show()
 
 
- # Load training data with validation split
+ # Load training data
 train_path = "BrainTumourDetection-AISE3000/train"
-X_train, X_val, y_train, y_val = load_images_from_folder(train_path, validation_split=0.1)
+X_train, y_train= load_images_from_folder(train_path)
 print(f"Training data shape: {X_train.shape}")
-print(f"Validation data shape: {X_val.shape}")
 print(f"Number of training labels: {len(y_train)}")
-print(f"Number of validation labels: {len(y_val)}")
 
-# Load testing data
+#Data is initially split into 80% train and 20% test so splitting the test set gives an 80/10/10 train/val/test split
+# Load testing data and split into test and validation sets
 test_path = "BrainTumourDetection-AISE3000/test"
-X_test, y_test = load_images_from_folder(test_path)
+X_test, X_val, y_test, y_val = load_images_from_folder(test_path, validation_split=0.5)
 print(f"Testing data shape: {X_test.shape}")
 print(f"Number of testing labels: {len(y_test)}")   
+print(f"Validation data shape: {X_val.shape}")
+print(f"Number of validation labels: {len(y_val)}")
 
+visualize = True
 
-
-visualize_samples = True
-
-if visualize_samples == True:
+if visualize == True:
     # Visualize Data Samples
     print("\nVisualizing training samples:")
     visualize_samples(X_train, y_train)
