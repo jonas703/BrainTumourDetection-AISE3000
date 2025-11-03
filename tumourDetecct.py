@@ -37,7 +37,7 @@ def load_images_from_folder(folder_path, image_size=(224, 224)):
                     
                     images.append(image)
                     labels.append(class_name)
-    
+                    
     return np.array(images), np.array(labels)
 
 # Load training data
